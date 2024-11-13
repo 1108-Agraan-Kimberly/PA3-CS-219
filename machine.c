@@ -14,5 +14,7 @@ FILE* commands;
         printf("empty");
         return 0;
     }
+    
+    fclose(commands);
     return 0;
 }
