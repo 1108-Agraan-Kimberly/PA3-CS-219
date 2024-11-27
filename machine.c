@@ -18,8 +18,10 @@ int main(){
     int32_t r0a = r0 & R4;
     int32_t r0o = R2 | R3;
     int32_t r5 = R3 ^ R4;
-    
-    printf(" %X \n", r0a);
+    int32_t r6 = 0xFFFFFFFF;
+    int32_t r7 = r6 >> 2;
+    int32_t r6o = r7 << 1;
+
     FILE* commands;
     commands = fopen(txt, "r");
     if(commands == NULL){
@@ -41,22 +43,22 @@ int main(){
         const char cmp[] = "CMP";
         const char tst[] = "tst";
 
-
+        if(strcmp(op, movU) == 0 || strstr(op, movU)){
+            char regi[8];
+            int32_t hexA;            
+            if(fscanf(commands, "%3s #%X", regi, &hexA) == 2){ //MOV operation
+            printf("%s %s #0x%X %X \n", op, regi, hexA, R4);
+            }  
+        }
+        if(strcmp(op, add) == 0 || strstr(op, add)){
+            char regi[8];
+            int32_t hexA;            
+            if(fscanf(commands, "%3s #%X", regi, &hexA) == 2){ //ADD operation
+            printf("%s %s #0x%X  \n", op, regi, hexA);
+            }             
+        }
     }
     fclose(commands);
     return 0;
 }
-        // if(strcmp(op, movU) == 0 || strstr(op, movU)){
-        //     char regi[8];
-        //     int32_t hexA;            
-        //     if(fscanf(commands, "%3s #%X", regi, &hexA) == 2){ //MOV operation
-        //     printf("%s %s #0x%X  \n", op, regi, hexA);
-        //     }  
-        // }
-        // if(strcmp(op, add) == 0 || strstr(op, add)){
-        //     char regi[8];
-        //     int32_t hexA;            
-        //     if(fscanf(commands, "%3s #%X", regi, &hexA) == 2){ //ADD operation
-        //     printf("%s %s #0x%X  \n", op, regi, hexA);
-        //     }             
-        // }
+
