@@ -71,7 +71,7 @@ int main(){
             printf("%s %s %s %s  \n", op, registr, registr, registr2);
             }             
         }
-        if(strcmp(op, or) == 0 || strstr(op, or)){
+        if(strcmp(op, orr) == 0 || strstr(op, orr)){
             char registr[8];
             char registr2[4];            
             if(fscanf(commands, "%3s %2s", registr, registr2) == 2){ //SUBS operation
