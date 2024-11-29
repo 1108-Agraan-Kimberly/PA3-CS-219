@@ -43,18 +43,39 @@ int main(){
         const char cmp[] = "CMP";
         const char tst[] = "tst";
 
-        if(strcmp(op, movU) == 0 || strstr(op, movU)){
-            char regi[8];
+        if(strcmp(op, movU) == 0 || strstr(op, movU ) || strcmp(op, movL) == 0 || strstr(op, movL)){
+            char registr[8];
             int32_t hexA;            
-            if(fscanf(commands, "%3s #%X", regi, &hexA) == 2){ //MOV operation
-            printf("%s %s #0x%X %X \n", op, regi, hexA, R4);
+            if(fscanf(commands, "%3s #%X", registr, &hexA) == 2){ //MOV operation
+            printf("%s %s #0x%X \n", op, registr, hexA);
             }  
         }
         if(strcmp(op, add) == 0 || strstr(op, add)){
-            char regi[8];
-            int32_t hexA;            
-            if(fscanf(commands, "%3s #%X", regi, &hexA) == 2){ //ADD operation
-            printf("%s %s #0x%X  \n", op, regi, hexA);
+            char registr[8];
+            char registr2[4];            
+            if(fscanf(commands, "%3s %2s", registr, registr2) == 2){ //ADD operation
+            printf("%s %s %s %s  \n", op, registr, registr, registr2);
+            }             
+        }
+        if(strcmp(op, sub) == 0 || strstr(op, sub)){
+            char registr[8];
+            char registr2[4];            
+            if(fscanf(commands, "%3s %2s", registr, registr2) == 2){ //SUBS operation
+            printf("%s %s %s %s  \n", op, registr, registr, registr2);
+            }             
+        }
+        if(strcmp(op, and) == 0 || strstr(op, and)){
+            char registr[8];
+            char registr2[4];            
+            if(fscanf(commands, "%3s %2s", registr, registr2) == 2){ //SUBS operation
+            printf("%s %s %s %s  \n", op, registr, registr, registr2);
+            }             
+        }
+        if(strcmp(op, or) == 0 || strstr(op, or)){
+            char registr[8];
+            char registr2[4];            
+            if(fscanf(commands, "%3s %2s", registr, registr2) == 2){ //SUBS operation
+            printf("%s %s %s %s  \n", op, registr, registr, registr2);
             }             
         }
     }
