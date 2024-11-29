@@ -9,18 +9,19 @@
 
 int main(){
     //Part one
-    int32_t R1 = 0x72DF9901;
-    int32_t R2 = 0x2E0B484A;
-    int32_t R3 = R1 + R2; 
-    int32_t R4 = R3 - R2;
-    //Part two
-    int32_t r0 = 0xAAA5555; 
-    int32_t r0a = r0 & R4;
-    int32_t r0o = R2 | R3;
-    int32_t r5 = R3 ^ R4;
-    int32_t r6 = 0xFFFFFFFF;
-    int32_t r7 = r6 >> 2;
-    int32_t r6o = r7 << 1;
+    // int32_t R1 = 0x72DF9901;
+    // int32_t R2 = 0x2E0B484A;
+    // int32_t R3 = R1 + R2; 
+    // int32_t R4 = R3 - R2;
+    // //Part two
+    // int32_t r0 = 0xAAA5555; 
+    // int32_t r0a = r0 & R4;
+    // int32_t r0o = R2 | R3;
+    // int32_t r5 = R3 ^ R4;
+    // int32_t r6 = 0xFFFFFFFF;
+    // int32_t r7 = r6 >> 2;
+    // int32_t r6o = r7 << 1;
+        int32_t r0, R1, R2, R3, R4, r5, r6, r7 = 0;
 
     FILE* commands;
     commands = fopen(txt, "r");
@@ -39,16 +40,35 @@ int main(){
         const char orr[] = "orr";
         const char xor[] = "xor";
         const char lslr[] = "lsrs";
-        const char lslrL[] = "LSRS";
+        const char lslrL[] = "LSLS";
         const char cmp[] = "CMP";
         const char tst[] = "tst";
 
-        if(strcmp(op, movU) == 0 || strstr(op, movU ) || strcmp(op, movL) == 0 || strstr(op, movL)){
+        if(strcmp(op, movU) == 0 || strstr(op, movU)){
             char registr[8];
             int32_t hexA;            
             if(fscanf(commands, "%3s #%X", registr, &hexA) == 2){ //MOV operation
+            int32_t R1 = 0x72DF9901;
             printf("%s %s #0x%X \n", op, registr, hexA);
+            printf("R0:0X%X R1:0x%X R2:0X%X R3:0X%X R4:0X%X R5:0X%X R6:0X%X R7:0X%X ", r0,R1, R2, R3, R4, r5, r6, r7);
+            }  //"R0: R1: R2: R3: R4: R5: R6: R7: " 
+        }
+        if(strcmp(op, movU) == 0 || strstr(op, movU)){
+            char registr[8];
+            int32_t hexA;            
+            if(fscanf(commands, "%3s #%X", registr, &hexA) == 2){ //MOV operation
+            int32_t R2 = 0x2E0B484A;
+            printf("%s %s #0x%X \n", op, registr, hexA);
+            printf("R0:0X%X R1:0x%X R2:0X%X R3:0X%X R4:0X%X R5:0X%X R6:0X%X R7:0X%X ", r0,R1, R2, R3, R4, r5, r6, r7);
             }  
+        }        
+        if(strcmp(op, movL) == 0 || strstr(op, movL)){
+            char registr[8];            
+            int32_t hexA;            
+            if(fscanf(commands, "%3s #%X", registr, &hexA) == 2){ //MOV operation
+            printf("%s %s #0x%X \n", op, registr, hexA);
+            printf("R0:0X%X R1:0x%X R2:0X%X R3:0X%X R4:0X%X R5:0X%X R6:0X%X R7:0X%X ", r0,R1, R2, R3, R4, r5, r6, r7);
+            }            
         }
         if(strcmp(op, add) == 0 || strstr(op, add)){
             char registr[8];
@@ -74,8 +94,23 @@ int main(){
         if(strcmp(op, orr) == 0 || strstr(op, orr)){
             char registr[8];
             char registr2[4];            
-            if(fscanf(commands, "%3s %2s", registr, registr2) == 2){ //SUBS operation
+            if(fscanf(commands, "%3s %2s", registr, registr2) == 2){ //orr operation
             printf("%s %s %s %s  \n", op, registr, registr, registr2);
+            }             
+        }
+        if(strcmp(op, xor) == 0 || strstr(op, xor)){
+            char registr[8];
+            char registr2[4];            
+            if(fscanf(commands, "%3s %2s", registr, registr2) == 2){ //xor operation
+            printf("%s %s %s %s  \n", op, registr, registr, registr2);
+            }             
+        }
+        if(strcmp(op, lslr) == 0 || strstr(op, lslr) || strcmp(op, lslrL) == 0 || strstr(op, lslrL)){
+            char registr[8];
+            char registr2[4]; 
+            int push;          
+            if(fscanf(commands, "%s %s #%d", registr, registr2, &push) == 3){ //xor operation
+            printf("%s %s %s #%d  \n", op, registr, registr2, push);
             }             
         }
     }
