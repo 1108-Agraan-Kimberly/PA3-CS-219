@@ -38,7 +38,7 @@ int main(){
             int32_t R1 = 0x72DF9901;
             printf("%s %s #0x%X \n", op, registr, hexA);
             printf("R0:0X%X R1:0x%X R2:0X%X R3:0X%X R4:0X%X R5:0X%X R6:0X%X R7:0X%X \n", r0,R1, R2, R3, R4, r5, r6, r7);
-            printf("N = 0 Z = 0 C = 0 V = 0 \n");
+            printf("N = %d Z = %d C = %d V = %d \n", N, Z, C, V);
             }  //"R0: R1: R2: R3: R4: R5: R6: R7: " 
         }
 
@@ -52,7 +52,7 @@ int main(){
             int32_t R3 = R1 + R2; 
             printf("%s %s %s %s \n", op, registr, registr2, registr3);
             printf("R0:0X%X R1:0x%X R2:0X%X R3:0X%X R4:0X%X R5:0X%X R6:0X%X R7:0X%X \n", r0,R1, R2, R3, R4, r5, r6, r7);
-            printf("N = 1 Z = 0 C = 0 V = 1 \n");
+            printf("N = %d Z = %d C = %d V = %d \n", N, Z, C, V);
             }             
         }
         if(strcmp(op, sub) == 0 || strstr(op, sub)){
@@ -64,7 +64,7 @@ int main(){
             int32_t R4 = R3 - R2;
             printf("%s %s %s %s  \n", op, registr, registr, registr2);
             printf("R0:0X%X R1:0x%X R2:0X%X R3:0X%X R4:0X%X R5:0X%X R6:0X%X R7:0X%X \n", r0,R1, R2, R3, R4, r5, r6, r7);
-            printf("N = 0 Z = 0 C = 1 V = 1 \n");
+            printf("N = %d Z = %d C = %d V = %d \n", N, Z, C, V);
             }             
         }
        
@@ -89,7 +89,7 @@ int main(){
             int32_t r0a = r0 & R4;
             printf("%s %s %s %s  \n", op, registr, registr2, registr3);
             printf("R0:0X%X R1:0x%X R2:0X%X R3:0X%X R4:0X%X R5:0X%X R6:0X%X R7:0X%X \n", r0a, R1, R2, R3, R4, r5, r6, r7);
-            printf("N = 0 Z = 0 C = 1 V = 1 \n");
+            printf("N = %d Z = %d C = %d V = %d \n", N, Z, C, V);
             }             
         }
         if(strcmp(op, orr) == 0 || strstr(op, orr)){
@@ -103,10 +103,11 @@ int main(){
             int32_t R4 = R3 - R2;
             int32_t r0 = 0xAAA5555; 
             int32_t r0a = r0 & R4;    
-            int32_t r0o = R2 | R3;        
+            int32_t r0o = R2 | R3;   
+            int C = 1, V = 1;    
             printf("%s %s %s %s  \n", op, registr, registr2, registr3);
             printf("R0:0X%X R1:0x%X R2:0X%X R3:0X%X R4:0X%X R5:0X%X R6:0X%X R7:0X%X \n", r0o, R1, R2, R3, R4, r5, r6, r7);
-            printf("N = 0 Z = 0 C = 1 V = 1 \n");
+            printf("N = %d Z = %d C = %d V = %d \n", N, Z, C, V);
             }             
         }
         if(strcmp(op, xor) == 0 || strstr(op, xor)){
@@ -122,9 +123,10 @@ int main(){
             int32_t r0a = r0 & R4;    
             int32_t r0o = R2 | R3;
             int32_t r5 = R3 ^ R4; 
+            int C = 1, V = 1; 
             printf("%s %s %s %s  \n", op, registr, registr2, registr3);
             printf("R0:0X%X R1:0x%X R2:0X%X R3:0X%X R4:0X%X R5:0X%X R6:0X%X R7:0X%X \n", r0o, R1, R2, R3, R4, r5, r6, r7);
-            printf("N = 0 Z = 0 C = 1 V = 1 \n");
+            printf("N = %d Z = %d C = %d V = %d \n", N, Z, C, V);
             }             
         }
         if(strcmp(op, lslr) == 0 || strstr(op, lslr) || strcmp(op, lslrL) == 0 || strstr(op, lslrL)){
@@ -143,9 +145,10 @@ int main(){
             int32_t r6 = 0xFFFFFFFF;
             int32_t r7 = r6 >> 2;
             int32_t r6o = r7 << 1;
+            int C = 1;
             printf("%s %s %s #%d  \n", op, registr, registr2, push);
             printf("R0:0X%X R1:0x%X R2:0X%X R3:0X%X R4:0X%X R5:0X%X R6:0X%X R7:0X%X \n", r0o, R1, R2, R3, R4, r5, r6, r7);
-            printf("N = 0 Z = 0 C = 1 V = 1 \n");
+            printf("N = %d Z = %d C = %d V = %d \n", N, Z, C, V);
             }             
         }
     }
