@@ -13,14 +13,8 @@ The program is a basic simulation of an ARM-like assembly processor written in C
 
 **SUBS** the next register to be updated will be the difference between the previous reigster (r3) and (r2).
 
-**orr** operation will update the register r0 based on the value of r2 and r3.
+**orr** and **xor** operation will update the register r0 based on the value of r2 and r3. Then update r5 using r3 and r4.
 
-**xor** operation the value in the file will be turned into a binary number and each bit will be inverted, the returned result will be the hex value of all the inverted bits. 
+**lsrs** For LSRS, you're comparing the bits in two numbers, and if both bits are 0, the result is 0. If either of the bits is 1, then the result is 1. It's like comparing each pair of bits and deciding the result based on that.
  
-**lsrs** operation will read the hex values, use the binary converions and compare each bit to each other, if the bits are both 0 then it will be 0, otherwise the result is a 1.
- 
-**lsls** operation will read the two hex values and take the binary conversion and subtract the second operand value from the first one.
-
-
-## Updating Flags
- But there are more than the add operation, 8 other operations are also used along with the variation of that operation changing the status flag of the result. Operations with an S at the end make sure the instruction will update the flag if needed. The "S" in an opcode means the operation will perform as usual but also update the status flags based on the result. 
+**lsls** subtracting the value of the second operand from the first one to perform the shift, filling with 0s where necessary. This is a bit like sliding all the bits over to the left and filling in the gaps with zeros.
