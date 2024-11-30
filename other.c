@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <ctype.h>
+
+// Function prototypes for handling operations
+void handle_mov(const char* registr, int32_t hexA, int32_t* registers);
+int get_register_index(const char* registr);
 
 int main() {
-    // Initialize registers
-    int32_t r0 = 0, R1 = 0, R2 = 0, R3 = 0, R4 = 0, r5 = 0, r6 = 0, r7 = 0;
-
-    // Open the file containing commands
+    int32_t registers[8] = {0}; // Registers R0 to R7 initialized to 0
     FILE* commands;
     const char* txt = "Programming-Project-3.txt"; // Replace with your file name
     commands = fopen(txt, "r");
@@ -15,40 +17,52 @@ int main() {
         return 0;
     }
 
-    // Variables to read operation and arguments
-    char op[10], registr[8];
-    int32_t hexA;
+    char line[256]; // Buffer to store a line from the file
+    while (fgets(line, sizeof(line), commands)) {
+        // Remove newline character if present
+        line[strcspn(line, "\n")] = 0;
 
-    // Read commands
-    while (fscanf(commands, "%s", op) == 1) {
-        if (strcmp(op, "MOV") == 0 || strcmp(op, "mov") == 0) {
-            // Parse register name and value
-            if (fscanf(commands, "%[^,], #%X", registr, &hexA) != 2) {
-                printf("Error parsing register and value.\n");
-                continue;
+        // Tokenize the line
+        char op[10], registr[10];
+        int32_t hexA;
+        if (sscanf(line, "%s %[^,], #%X", op, registr, &hexA) == 3) {
+            if (strcmp(op, "MOV") == 0 || strcmp(op, "mov") == 0) {
+                handle_mov(registr, hexA, registers);
+            } else {
+                printf("Unknown operation: %s\n", op);
             }
-
-            // Update the appropriate register
-            if (strcmp(registr, "R0") == 0) r0 = hexA;
-            else if (strcmp(registr, "R1") == 0) R1 = hexA;
-            else if (strcmp(registr, "R2") == 0) R2 = hexA;
-            else if (strcmp(registr, "R3") == 0) R3 = hexA;
-            else if (strcmp(registr, "R4") == 0) R4 = hexA;
-            else if (strcmp(registr, "R5") == 0) r5 = hexA;
-            else if (strcmp(registr, "R6") == 0) r6 = hexA;
-            else if (strcmp(registr, "R7") == 0) r7 = hexA;
-            else {
-                printf("Unknown register: %s\n", registr);
-                continue;
-            }
-
-            // Print the MOV operation and updated registers
-            printf("%s %s #0x%X\n", op, registr, hexA);
-            printf("R0:0x%X R1:0x%X R2:0x%X R3:0x%X R4:0x%X R5:0x%X R6:0x%X R7:0x%X\n",
-                   r0, R1, R2, R3, R4, r5, r6, r7);
+        } else {
+            printf("Error parsing line: %s\n", line);
         }
     }
 
     fclose(commands);
     return 0;
+}
+
+// Function to handle MOV operation
+void handle_mov(const char* registr, int32_t hexA, int32_t* registers) {
+    int regIndex = get_register_index(registr);
+    if (regIndex != -1) {
+        registers[regIndex] = hexA;
+        printf("MOV %s, #0x%X\n", registr, hexA);
+        printf("R0: 0x%X R1: 0x%X R2: 0x%X R3: 0x%X R4: 0x%X R5: 0x%X R6: 0x%X R7: 0x%X\n",
+               registers[0], registers[1], registers[2], registers[3],
+               registers[4], registers[5], registers[6], registers[7]);
+    } else {
+        printf("Unknown register: %s\n", registr);
+    }
+}
+
+// Function to get register index from name
+int get_register_index(const char* registr) {
+    if (strcmp(registr, "R0") == 0) return 0;
+    if (strcmp(registr, "R1") == 0) return 1;
+    if (strcmp(registr, "R2") == 0) return 2;
+    if (strcmp(registr, "R3") == 0) return 3;
+    if (strcmp(registr, "R4") == 0) return 4;
+    if (strcmp(registr, "R5") == 0) return 5;
+    if (strcmp(registr, "R6") == 0) return 6;
+    if (strcmp(registr, "R7") == 0) return 7;
+    return -1; // Invalid register
 }
