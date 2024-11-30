@@ -50,6 +50,7 @@ int main(){
             int32_t R1 = 0x72DF9901;
             int32_t R2 = 0x2E0B484A;
             int32_t R3 = R1 + R2; 
+            int V = 1;
             printf("%s %s %s %s \n", op, registr, registr2, registr3);
             printf("R0:0X%X R1:0x%X R2:0X%X R3:0X%X R4:0X%X R5:0X%X R6:0X%X R7:0X%X \n", r0,R1, R2, R3, R4, r5, r6, r7);
             printf("N = %d Z = %d C = %d V = %d \n", N, Z, C, V);
@@ -62,6 +63,7 @@ int main(){
             int32_t R1 = 0x72DF9901;
             int32_t R2 = 0x2E0B484A;
             int32_t R4 = R3 - R2;
+            int C = 1, V = 1;
             printf("%s %s %s %s  \n", op, registr, registr, registr2);
             printf("R0:0X%X R1:0x%X R2:0X%X R3:0X%X R4:0X%X R5:0X%X R6:0X%X R7:0X%X \n", r0,R1, R2, R3, R4, r5, r6, r7);
             printf("N = %d Z = %d C = %d V = %d \n", N, Z, C, V);
@@ -79,7 +81,8 @@ int main(){
         if(strcmp(op, and) == 0 || strstr(op, and)){
             char registr[8];
             char registr2[4];    
-            char registr3[4];        
+            char registr3[4];    
+            int C = 1, V = 1;    
             if(fscanf(commands, "%s %s %s", registr, registr2, registr3) == 3){ //SUBS operation
             int32_t R1 = 0x72DF9901;
             int32_t R2 = 0x2E0B484A;
