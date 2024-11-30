@@ -8,21 +8,8 @@
 #define txt "Programming-Project-3.txt"
 
 int main(){
-    //Part one
-    // int32_t R1 = 0x72DF9901;
-    // int32_t R2 = 0x2E0B484A;
-    // int32_t R3 = R1 + R2; 
-    // int32_t R4 = R3 - R2;
-    // //Part two
-    // int32_t r0 = 0xAAA5555; 
-    // int32_t r0a = r0 & R4;
-    // int32_t r0o = R2 | R3;
-    // int32_t r5 = R3 ^ R4;
-    // int32_t r6 = 0xFFFFFFFF;
-    // int32_t r7 = r6 >> 2;
-    // int32_t r6o = r7 << 1;
     const int32_t r0 = 0, R1 = 0, R2 = 0, R3 = 0, R4 = 0, r5 = 0, r6 = 0, r7 = 0;
-
+    int N = 0, Z = 0, C = 0, V = 0;
     FILE* commands;
     commands = fopen(txt, "r");
     if(commands == NULL){
